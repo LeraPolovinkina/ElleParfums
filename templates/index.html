@@ -20,22 +20,25 @@
 <body>
 <div id="parallax"></div>
 <div class="container d-flex justify-content-center">
-    <img src="../static/img/Elle_logo_balck%201.svg" class="logo" alt="">
+    <img src="../static/img/Elle_logo_balck%201.svg" class="logo mt-3" alt="">
 </div>
 <div class="container px-5">
     <div class="row gx-5">
         <div class="col mt-5">
             <h3>Plan for a month for each employee</h3>
             <p class="sub_heading">Statistics subinformation</p>
-            {% for user in employee %}
-                <div class="progress mb-4" data-max="{{ variable.employee_goal }}" style="height: 2.5rem;">
-                    <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
-                         data-cur="{{ user.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                        <span class="float-end">{{ user.name }}</span>
-                        <span class="current float-end">{{ user.profit }}</span>
+            <div id="user-list">
+                {% for user in users %}
+                    <div class="progress mb-4" data-max="{{ variable.employee_goal }}" style="height: 2.5rem;">
+                        <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
+                             data-cur="{{ user.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <span class="float-end">{{ user.name }}</span>
+                            <span class="current float-end">{{ user.profit }}</span>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+
             {#				<div class="progress" data-max="100000" style="height: 2rem;">#}
             {#					<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" data-cur="96000" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">#}
             {#						<span class="float-end">Employee 1</span>#}
@@ -70,10 +73,12 @@
             <div>
                 <h3>Plan for a day</h3>
                 <p class="sub_heading">Statistics subinformation</p>
-                <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
-                    <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
-                         data-cur="{{ today.profit }}">
-                        <span class="current m-0">Employee 1</span>
+                <div id="progress_day">
+                    <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
+                        <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
+                             data-cur="{{ today.profit }}">
+                            <span class="current m-0">Employee 1</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,11 +86,14 @@
 
     </div>
 </div>
-<script src="{% static 'js/script.js' %}"></script>
+
 <script src="{% static 'vendor/bootstrap5/js/bootstrap.min.js' %}"></script>
+<script src="{% static '/js/jquery-3.6.4.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
-<script !src="">
-    $(".progress-pie").loading();
+<script src="{% static 'js/script.js' %}"></script>
+
+<script>
+    setInterval(updateData, 5000);
 </script>
 </body>
 </html>
