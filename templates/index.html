@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ELLE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap5/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/css-circular-prog-bar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<div id="parallax"></div>
+<div class="container d-flex justify-content-center">
+    <img src="../static/img/Elle_logo_balck%201.svg" class="logo" alt="">
+</div>
+<div class="container px-5">
+    <div class="row gx-5">
+        <div class="col mt-5">
+            <h3>Plan for a month for each employee</h3>
+            <p class="sub_heading">Statistics subinformation</p>
+            {% for user in employee %}
+                <div class="progress mb-4" data-max="{{ variable.employee_goal }}" style="height: 2.5rem;">
+                    <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
+                         data-cur="{{ user.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <span class="float-end">{{ user.name }}</span>
+                        <span class="current float-end">{{ user.profit }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+            {#				<div class="progress" data-max="100000" style="height: 2rem;">#}
+            {#					<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" data-cur="96000" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">#}
+            {#						<span class="float-end">Employee 1</span>#}
+            {#						<span class="current float-end">$$$</span>#}
+            {#					</div>#}
+            {#				</div>#}
+            {#				<div class="progress" data-max="100000" style="height: 2rem;">#}
+            {#					<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" data-cur="30000" >#}
+            {#						<span class="float-end">Employee 1</span>#}
+            {#						<span class="current float-end">$$$</span>#}
+            {#					</div>#}
+            {#				</div>#}
+
+        </div>
+        <div class="col mt-5">
+            <div>
+                <h3>Plan for a month for each employee</h3>
+                <p class="sub_heading">Statistics subinformation</p>
+                <div class="progress-block d-flex justify-content-center">
+                    <div class="progress-circle {% if month.percent > 50 %}over50{% endif %} p{{ month.percent }} m-0">
+						<span class="d-flex flex-column justify-content-center">
+							<h1 class="circle-h1">{{ month.profit }}</h1>
+							<h5 class="circle-sub">GOAL {{ variable.global_goal }}</h5>
+						</span>
+                        <div class="left-half-clipper">
+                            <div class="first50-bar"></div>
+                            <div class="value-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Plan for a day</h3>
+                <p class="sub_heading">Statistics subinformation</p>
+                <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
+                    <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
+                         data-cur="{{ today.profit }}">
+                        <span class="current m-0">Employee 1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'vendor/bootstrap5/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
+<script !src="">
+    $(".progress-pie").loading();
+</script>
+</body>
+</html>

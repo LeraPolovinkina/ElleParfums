@@ -1,0 +1,109 @@
+* {
+    font-family: 'IBM Plex Sans';
+}
+body {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.4) 5%, #ffdde9 1%);
+    background-position: 0 0;
+    background-size: 30px 30px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.logo {
+    height: 6rem;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.496657px;
+    color: #1E1E1E;
+}
+p.sub_heading {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.25px;
+    color: #607D8B;
+}
+
+.progress {
+    position: relative;
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 2.5rem;
+    display: flex;
+    background: rgba(30, 30, 30, 0.24);
+    border-radius: 2.25753px;
+}
+.progress:after {
+    content: attr(data-max) " с.";
+    margin-left: auto;
+    padding-right: 1rem!important;
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18.0602px;
+    line-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.496657px;
+    color: #FFDDE9;
+    position: absolute;
+    right: 0;
+}
+.progress-bar {
+    background: #5b5254;
+    border-radius: 2.25753px;
+    z-index: 1;
+}
+.progress-bar span {
+    color: #ffdde9 !important;
+}
+
+.progress-bar .current {
+    margin-left: 1rem;
+}
+.circle-h1 {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 44px;
+    text-align: center;
+    color: #263238;
+
+}
+.circle-sub {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: #263238;
+
+}
+#parallax {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/leaves2-1.png"), url("../img/leaves2-2.png") ;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size:  cover;
+    pointer-events: none;
+    z-index: 2;
+}
