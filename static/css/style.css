@@ -47,7 +47,7 @@ p.sub_heading {
     border-radius: 2.25753px;
 }
 .progress:after {
-    content: attr(data-max) " с.";
+    content: attr(data-max);
     margin-left: auto;
     padding-right: 1rem!important;
     font-family: 'IBM Plex Sans';

@@ -5,7 +5,7 @@ progressBars.forEach(progress => {
     let maxValue = progress.parentElement.getAttribute('data-max');
     const width = (curValue * 100) / maxValue;
     progress.style.width = `${width}%`;
-    currentElement.textContent = `${curValue} с.`;
+    currentElement.textContent = `${curValue}`;
 });
 
 progressBars.forEach(progressBar => {
@@ -13,7 +13,7 @@ progressBars.forEach(progressBar => {
     let totalWidth = 0;
 
     spans.forEach(span => {
-        totalWidth += 20 + span.offsetWidth;
+        totalWidth += 25 + span.offsetWidth;
     });
 
     progressBar.style.minWidth = totalWidth + 'px';
@@ -60,7 +60,7 @@ function updateData() {
                     '<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" ' +
                     'data-cur="' + user['fields']['profit'] + '" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
                     '<span class="float-end">' + user['fields']['name'] + '</span>' +
-                    '<span class="current float-end">' + user['fields']['profit'] + ' c.</span>' +
+                    '<span class="current float-end">' + user['fields']['profit'] + ' </span>' +
                     '</div>' +
                     '</div>';
                 // Вставляем созданный HTML-код в нужное место на странице
@@ -103,7 +103,7 @@ function updateData() {
                 let maxValue = progress.parentElement.getAttribute('data-max');
                 const width = (curValue * 100) / maxValue;
                 progress.style.width = `${width}%`;
-                currentElement.textContent = `${curValue} с.`;
+                currentElement.textContent = `${curValue}`;
             });
 
             progressBars.forEach(progressBar => {
@@ -111,7 +111,7 @@ function updateData() {
                 let totalWidth = 0;
 
                 spans.forEach(span => {
-                    totalWidth += 20 + span.offsetWidth;
+                    totalWidth += 25 + span.offsetWidth;
                 });
 
                 progressBar.style.minWidth = totalWidth + 'px';
