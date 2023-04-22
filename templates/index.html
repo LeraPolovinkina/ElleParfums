@@ -25,8 +25,8 @@
 <div class="container px-5">
     <div class="row gx-5">
         <div class="col mt-5">
-            <h3>Plan for a month for each employee</h3>
-            <p class="sub_heading">Statistics subinformation</p>
+            <h3>Лучшие парфюмерные стилисты</h3>
+            <p class="sub_heading">Прибыль компании за текущий месяц</p>
             <div id="user-list">
                 {% for user in users %}
                     <div class="progress mb-4" data-max="{{ variable.employee_goal }}" style="height: 2.5rem;">
@@ -55,8 +55,8 @@
         </div>
         <div class="col mt-5">
             <div>
-                <h3>Plan for a month for each employee</h3>
-                <p class="sub_heading">Statistics subinformation</p>
+                <h3>Цель команды Elle Parfums</h3>
+                <p class="sub_heading">Прибыль компании за текущий месяц</p>
                 <div class="progress-block d-flex justify-content-center">
                     <div class="progress-circle {% if month.percent > 50 %}over50{% endif %} p{{ month.percent }} m-0">
 						<span class="d-flex flex-column justify-content-center">
@@ -71,8 +71,8 @@
                 </div>
             </div>
             <div>
-                <h3>Plan for a day</h3>
-                <p class="sub_heading">Statistics subinformation</p>
+                <h3>Цель команды на сегодня</h3>
+                <p class="sub_heading">Прибыль компании за текущий день</p>
                 <div id="progress_day">
                     <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
                         <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
