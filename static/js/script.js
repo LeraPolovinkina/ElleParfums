@@ -32,7 +32,6 @@ progressBars.forEach(progressBar => {
         let _depth2 = `${50 - (_mouseX - _w) * 0.02}% ${50 - (_mouseY - _h) * 0.02}%`;
         let _depth3 = `${50 - (_mouseX - _w) * 0.06}% ${50 - (_mouseY - _h) * 0.06}%`;
         let x = `${_depth3}, ${_depth2}, ${_depth1}`;
-        console.log(x);
         elem.style.backgroundPosition = x;
     }
 
@@ -67,7 +66,6 @@ function updateData() {
                 $('#user-list').append(userHtml);
             });
 
-            console.log('gg');
 
             // Получаем элемент, который нужно изменить
             let progressBlock = $('.progress-block');
@@ -87,6 +85,7 @@ function updateData() {
             `);
 
             let progress_day = $('#progress_day');
+            let curValue_day = progress_day.find('.progress-bar').data('cur');
             progress_day.empty()
             progress_day.append(`
                 <div class="progress mb-4" data-max="${variable['today_goal']}" style="height: 2.5rem;">
@@ -116,7 +115,39 @@ function updateData() {
 
                 progressBar.style.minWidth = totalWidth + 'px';
             });
+            if (curValue_day < today['profit']) {
+                const duration = 10 * 1000,
+                    animationEnd = Date.now() + duration,
+                    defaults = {startVelocity: 30, spread: 360, ticks: 60, zIndex: 0};
 
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                const interval = setInterval(function () {
+                    const timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+
+                    const particleCount = 50 * (timeLeft / duration);
+
+                    // since particles fall down, start a bit higher than random
+                    confetti(
+                        Object.assign({}, defaults, {
+                            particleCount,
+                            origin: {x: randomInRange(0.1, 0.3), y: Math.random() - 0.2},
+                        })
+                    );
+                    confetti(
+                        Object.assign({}, defaults, {
+                            particleCount,
+                            origin: {x: randomInRange(0.7, 0.9), y: Math.random() - 0.2},
+                        })
+                    );
+                }, 250);
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             // Функция обработки ошибок AJAX-запроса

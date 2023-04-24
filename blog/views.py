@@ -78,5 +78,4 @@ class Update(View):
                 'variable': static_v,
                 'today': today,
                 'month': month}
-        print(data)
         return JsonResponse(data)
