@@ -1,4 +1,5 @@
-from django.core.validators import MaxValueValidator
+from datetime import datetime
+
 from django.db import models
 
 class User(models.Model):
@@ -13,6 +14,6 @@ class StaticValue(models.Model):
     employee_goal = models.IntegerField(default=100000)
     today_goal = models.IntegerField(default=100000)
     token = models.CharField(max_length=200, default="")
-
+    date = models.DateField(default=datetime.now())
     class Meta:
         verbose_name_plural = 'Static Values'

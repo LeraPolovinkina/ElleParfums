@@ -4,13 +4,16 @@ import requests
 
 from blog.models import StaticValue
 
-token = StaticValue.objects.first().token
-
 
 def get_all_employees():
     result = {}
+    start_of_month = StaticValue.objects.first().date
+
+    # Форматирование даты в строку в формате "ггггммдд"
+    formatted_start_of_month = start_of_month.strftime("%Y%m%d")
     data = {
-        'token': token,
+        'token': StaticValue.objects.first().token,
+        'dateFrom': formatted_start_of_month
     }
     response = requests.get(
         'https://joinposter.com/api/dash.getWaitersSales', params=data)
@@ -23,10 +26,9 @@ def get_all_employees():
 
 def get_global_statistic():
     data = {
-        'token': token,
+        'token': StaticValue.objects.first().token,
         'format': 'json',
         'interpolate': 'month',
-        'select': 'profit'
     }
     response = requests.get(
         'https://joinposter.com/api/dash.getAnalytics', params=data)
@@ -44,11 +46,11 @@ def get_today_statistic():
     formatted_date = current_date.strftime('%Y%m%d')
 
     data = {
-        'token': token,
+        'token': StaticValue.objects.first().token,
         'dateFrom': formatted_date
     }
     response = requests.get(
         'https://joinposter.com/api/dash.getSpotsSales', params=data)
     result = response.json()['response']
-    result['profit'] = int(result['profit'])
+    result['profit'] = int(result['revenue'])
     return result
