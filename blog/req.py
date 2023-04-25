@@ -25,15 +25,25 @@ def get_all_employees():
 
 
 def get_global_statistic():
+    now = datetime.datetime.now()
+
+    # Получение даты начала текущего месяца
+    start_of_month = datetime.datetime(now.year, now.month, 1)
+
+    # Форматирование даты в строку в формате "ггггммдд"
+    formatted_start_of_month = start_of_month.strftime("%Y%m%d")
+
     data = {
         'token': StaticValue.objects.first().token,
-        'format': 'json',
-        'interpolate': 'month',
+        # 'format': 'json',
+        # 'interpolate': 'month',
+        'dateFrom': formatted_start_of_month,
+        'spot_id': 2
     }
     response = requests.get(
-        'https://joinposter.com/api/dash.getAnalytics', params=data)
+        'https://joinposter.com/api/dash.getSpotsSales', params=data)
 
-    result = {'profit': int(float(response.json()['response']['data'][-1]))}
+    result = {'profit': int(float(response.json()['response']['revenue']))}
     max_value = int(StaticValue.objects.first().global_goal)
     result['percent'] = int(result['profit'] * 100 / max_value)
     return result
