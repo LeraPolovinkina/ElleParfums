@@ -1,6 +1,7 @@
 * {
     font-family: 'IBM Plex Sans';
 }
+
 body {
     background-image: radial-gradient(rgba(0, 0, 0, 0.4) 5%, #ffdde9 1%);
     background-position: 0 0;
@@ -9,6 +10,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .logo {
     height: 6rem;
 }
@@ -24,6 +26,7 @@ h3 {
     letter-spacing: 0.496657px;
     color: #1E1E1E;
 }
+
 p.sub_heading {
     font-family: 'IBM Plex Sans';
     font-style: normal;
@@ -46,11 +49,13 @@ p.sub_heading {
     display: flex;
     background: rgba(30, 30, 30, 0.24);
     border-radius: 2.25753px;
+    overflow: visible;
 }
+
 .progress:after {
     content: attr(data-max);
     margin-left: auto;
-    padding-right: 1rem!important;
+    padding-right: 1rem !important;
     font-family: 'IBM Plex Sans';
     font-style: normal;
     font-weight: 700;
@@ -63,11 +68,13 @@ p.sub_heading {
     position: absolute;
     right: 0;
 }
+
 .progress-bar {
     background: #5b5254;
     border-radius: 2.25753px;
     z-index: 1;
 }
+
 .progress-bar span {
     color: #ffdde9 !important;
 }
@@ -75,6 +82,7 @@ p.sub_heading {
 .progress-bar .current {
     margin-left: 1rem;
 }
+
 .circle-h1 {
     font-family: 'IBM Plex Sans';
     font-style: normal;
@@ -85,6 +93,7 @@ p.sub_heading {
     color: #263238;
 
 }
+
 .circle-sub {
     font-family: 'IBM Plex Sans';
     font-style: normal;
@@ -97,14 +106,25 @@ p.sub_heading {
     color: #263238;
 
 }
+
 #parallax {
     position: fixed;
     width: 100%;
     height: 100%;
-    background-image: url("../img/leaves2-1.png"), url("../img/leaves2-2.png") ;
+    background-image: url("../img/leaves2-1.png"), url("../img/leaves2-2.png");
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background-size:  cover;
+    background-size: cover;
     pointer-events: none;
     z-index: 2;
+}
+
+.empl-medal {
+    display: inline-block;
+    position: absolute;
+    width: 2.1rem !important;
+    height: 2.1rem !important;
+    left: -2.1rem;
+    top: 0.2rem;
+    margin-right: 10px;
 }

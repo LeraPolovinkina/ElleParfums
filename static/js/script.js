@@ -54,14 +54,26 @@ function updateData() {
             $('#user-list').empty();
             // Добавление каждого пользователя из полученных данных на страницу
             $.each(users_s, function (index, user) {
-                // Создаем HTML-код с данными пользователя
-                var userHtml = '<div class="progress mb-4" data-max="' + variable['employee_goal'] + '" style="height: 2.5rem;">' +
-                    '<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" ' +
-                    'data-cur="' + user['fields']['profit'] + '" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
-                    '<span class="float-end">' + user['fields']['name'] + '</span>' +
-                    '<span class="current float-end">' + user['fields']['profit'] + ' </span>' +
-                    '</div>' +
-                    '</div>';
+                if (index === 0) {
+                    // Создаем HTML-код с данными пользователя
+                    var userHtml = '<div class="progress mb-4" data-max="' + variable['employee_goal'] + '" style="height: 2.5rem;">' +
+                        '<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" ' +
+                        'data-cur="' + user['fields']['profit'] + '" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
+                        '<span class="float-end"><img src="/static/img/1f947.png" class="empl-medal" alt="">' + user['fields']['name'] + '</span>' +
+                        '<span class="current float-end">' + user['fields']['profit'] + ' </span>' +
+                        '</div>' +
+                        '</div>';
+                } else {
+                    // Создаем HTML-код с данными пользователя
+                    var userHtml = '<div class="progress mb-4" data-max="' + variable['employee_goal'] + '" style="height: 2.5rem;">' +
+                        '<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" ' +
+                        'data-cur="' + user['fields']['profit'] + '" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
+                        '<span class="float-end">' + user['fields']['name'] + '</span>' +
+                        '<span class="current float-end">' + user['fields']['profit'] + ' </span>' +
+                        '</div>' +
+                        '</div>';
+                }
+                
                 // Вставляем созданный HTML-код в нужное место на странице
                 $('#user-list').append(userHtml);
             });

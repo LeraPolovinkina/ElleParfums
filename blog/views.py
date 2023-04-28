@@ -10,6 +10,7 @@ from blog.models import User, StaticValue
 def home(request):
     # Данные, которые вы хотите передать на страницу
     employee = User.objects.filter(is_active=True)
+    employee = employee.order_by('-profit')
 
     new_api_users = req.get_all_employees()
     today = req.get_today_statistic()
@@ -34,7 +35,8 @@ def home(request):
 
     my_variable_value = StaticValue.objects.first()
     # Передача данных в шаблон
-    context = {'users': employee,
+    context = {'first': employee[0],
+               'users': employee[1:],
                'variable': my_variable_value,
                'today': today,
                'month': month}
@@ -42,9 +44,10 @@ def home(request):
     # Возврат отрендеренного представления с передачей контекста
     return render(request, 'index.html', context)
 
+
 class Update(View):
     def get(self, request, *args, **kwargs):
-        employee = User.objects.filter(is_active=True)
+        employee = User.objects.filter(is_active=True).order_by('-profit')
 
         new_api_users = req.get_all_employees()
         today = req.get_today_statistic()
@@ -71,7 +74,8 @@ class Update(View):
 
         # # Преобразование QuerySet в список словарей
         employee_data = serializers.serialize('json', employee)
-        static_v = {'global_goal':my_variable_value.global_goal, 'employee_goal': my_variable_value.employee_goal, 'today_goal' : my_variable_value.today_goal}
+        static_v = {'global_goal': my_variable_value.global_goal, 'employee_goal': my_variable_value.employee_goal,
+                    'today_goal': my_variable_value.today_goal}
 
         # Логика обработки AJAX-запроса и формирования данных для отправки клиенту
         data = {'users': employee_data,

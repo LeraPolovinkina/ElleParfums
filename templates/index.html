@@ -26,8 +26,16 @@
     <div class="row gx-5">
         <div class="col mt-5">
             <h3>Лучшие парфюмерные стилисты</h3>
-            <p class="sub_heading">Прибыль компании за текущий месяц</p>
+            <p class="sub_heading">Чистая прибыль компании за текущий месяц. (При выполнении плана 500к начисляется 20%
+                от всей суммы)</p>
             <div id="user-list">
+                <div class="progress mb-4" data-max="{{ variable.employee_goal }}" style="height: 2.5rem;">
+                    <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
+                         data-cur="{{ first.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <span class="float-end"><img src="/static/img/1f947.png" class="empl-medal" alt="">{{ first.name }}</span>
+                        <span class="current float-end">{{ first.profit }}</span>
+                    </div>
+                </div>
                 {% for user in users %}
                     <div class="progress mb-4" data-max="{{ variable.employee_goal }}" style="height: 2.5rem;">
                         <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
@@ -73,13 +81,19 @@
             <div>
                 <h3>Цель команды на сегодня</h3>
                 <p class="sub_heading">Прибыль компании за текущий день</p>
-                <div id="progress_day">
-                    <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
-                        <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
-                             data-cur="{{ today.profit }}">
-                            <span class="current m-0">Employee 1</span>
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <div id="progress_day">
+                            <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
+                                <div class="progress-bar d-flex flex-row justify-content-between px-3"
+                                     role="progressbar"
+                                     data-cur="{{ today.profit }}">
+                                    <span class="current m-0">Employee 1</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <img style="height: 2.5rem" class="ps-2" src="{% static 'img/pizza.png' %}" alt="">
                 </div>
             </div>
         </div>
