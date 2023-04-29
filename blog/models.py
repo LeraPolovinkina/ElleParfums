@@ -7,6 +7,7 @@ class User(models.Model):
     profit = models.IntegerField(default=0)
     user_id = models.IntegerField()
     is_active = models.BooleanField(default=True)
+    goal = models.IntegerField(default=500000)
 
 
 class StaticValue(models.Model):

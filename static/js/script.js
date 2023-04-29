@@ -4,7 +4,7 @@ progressBars.forEach(progress => {
     const curValue = progress.getAttribute('data-cur');
     let maxValue = progress.parentElement.getAttribute('data-max');
     const width = (curValue * 100) / maxValue;
-    progress.style.width = `${width}%`;
+    progress.style.width = `${width + (30- (30*width/100))}%`;
     currentElement.textContent = `${curValue}`;
 });
 
@@ -56,7 +56,7 @@ function updateData() {
             $.each(users_s, function (index, user) {
                 if (index === 0) {
                     // Создаем HTML-код с данными пользователя
-                    var userHtml = '<div class="progress mb-4" data-max="' + variable['employee_goal'] + '" style="height: 2.5rem;">' +
+                    var userHtml = '<div class="progress mb-4" data-max="' + user['fields']['goal'] + '" style="height: 2.5rem;">' +
                         '<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" ' +
                         'data-cur="' + user['fields']['profit'] + '" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
                         '<span class="float-end"><img src="/static/img/1f947.png" class="empl-medal" alt="">' + user['fields']['name'] + '</span>' +
@@ -65,7 +65,7 @@ function updateData() {
                         '</div>';
                 } else {
                     // Создаем HTML-код с данными пользователя
-                    var userHtml = '<div class="progress mb-4" data-max="' + variable['employee_goal'] + '" style="height: 2.5rem;">' +
+                    var userHtml = '<div class="progress mb-4" data-max="' + user['fields']['goal'] + '" style="height: 2.5rem;">' +
                         '<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" ' +
                         'data-cur="' + user['fields']['profit'] + '" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
                         '<span class="float-end">' + user['fields']['name'] + '</span>' +
@@ -113,7 +113,7 @@ function updateData() {
                 const curValue = progress.getAttribute('data-cur');
                 let maxValue = progress.parentElement.getAttribute('data-max');
                 const width = (curValue * 100) / maxValue;
-                progress.style.width = `${width}%`;
+                progress.style.width = `${width + (30- (30*width/100))}%`;
                 currentElement.textContent = `${curValue}`;
             });
 
