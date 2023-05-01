@@ -8,9 +8,15 @@ from blog.models import StaticValue
 def get_all_employees():
     result = {}
     start_of_month = StaticValue.objects.first().date
+    isStart = StaticValue.objects.first().use_start_of_month
+    if isStart:
+        now = datetime.datetime.now()
 
+        # Получение даты начала текущего месяца
+        start_of_month = datetime.datetime(now.year, now.month, 1)
     # Форматирование даты в строку в формате "ггггммдд"
     formatted_start_of_month = start_of_month.strftime("%Y%m%d")
+    print(formatted_start_of_month)
     data = {
         'token': StaticValue.objects.first().token,
         'dateFrom': formatted_start_of_month
@@ -21,6 +27,7 @@ def get_all_employees():
     result = [{'name': d['name'], 'profit': int(int(d['profit']) / 100), 'user_id': int(d['user_id'])} for d in
               list_of_dicts if 'profit' in d]
     result.sort(key=lambda x: x['profit'], reverse=True)
+    print(result)
     return result
 
 

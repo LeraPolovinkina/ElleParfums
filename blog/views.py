@@ -17,20 +17,37 @@ def home(request):
     month = req.get_global_statistic()
 
     # Обновление или создание пользователей в базе данных Django
-    for api_user in new_api_users:
-        # Попытка найти пользователя по email в базе данных
-        try:
-            user = User.objects.get(user_id=int(api_user['user_id']))
+    users = User.objects.all()
+    for user in users:
+        flag = False
+        api_user = None
+        for api_user in new_api_users:
+            if user.user_id == (api_user['user_id']):
+                flag = True
+                api_user = api_user
+                break
+        if flag:
             user.profit = int(api_user['profit'])
             user.save()
-        except User.DoesNotExist:
-            user = User(
-                name=api_user['name'],
-                profit=int(api_user['profit']),
-                user_id=int(api_user['user_id'])
-                # ... и так далее
-            )
+            new_api_users.remove(api_user)
+        else:
+            user.profit = 0
             user.save()
+    print(new_api_users)
+    for api_user in new_api_users:
+        # # Попытка найти пользователя по email в базе данных
+        # try:
+        #     user = User.objects.get(user_id=int(api_user['user_id']))
+        #     user.profit = int(api_user['profit'])
+        #     user.save()
+        # except User.DoesNotExist:
+        user = User(
+            name=api_user['name'],
+            profit=int(api_user['profit']),
+            user_id=int(api_user['user_id'])
+            # ... и так далее
+        )
+        user.save()
     # Сохранение нового пользователя
 
     my_variable_value = StaticValue.objects.first()
@@ -54,20 +71,37 @@ class Update(View):
         month = req.get_global_statistic()
 
         # Обновление или создание пользователей в базе данных Django
-        for api_user in new_api_users:
-            # Попытка найти пользователя по email в базе данных
-            try:
-                user = User.objects.get(user_id=int(api_user['user_id']))
+        users = User.objects.all()
+        for user in users:
+            flag = False
+            api_user = None
+            for api_user in new_api_users:
+                if user.user_id == (api_user['user_id']):
+                    flag = True
+                    api_user = api_user
+                    break
+            if flag:
                 user.profit = int(api_user['profit'])
                 user.save()
-            except User.DoesNotExist:
-                user = User(
-                    name=api_user['name'],
-                    profit=int(api_user['profit']),
-                    user_id=int(api_user['user_id'])
-                    # ... и так далее
-                )
+                new_api_users.remove(api_user)
+            else:
+                user.profit = 0
                 user.save()
+        print(new_api_users)
+        for api_user in new_api_users:
+            # # Попытка найти пользователя по email в базе данных
+            # try:
+            #     user = User.objects.get(user_id=int(api_user['user_id']))
+            #     user.profit = int(api_user['profit'])
+            #     user.save()
+            # except User.DoesNotExist:
+            user = User(
+                name=api_user['name'],
+                profit=int(api_user['profit']),
+                user_id=int(api_user['user_id'])
+                # ... и так далее
+            )
+            user.save()
         # Сохранение нового пользователя
 
         my_variable_value = StaticValue.objects.first()

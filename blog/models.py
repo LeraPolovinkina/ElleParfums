@@ -16,5 +16,6 @@ class StaticValue(models.Model):
     today_goal = models.IntegerField(default=100000)
     token = models.CharField(max_length=200, default="")
     date = models.DateField(default=datetime.now())
+    use_start_of_month = models.BooleanField(default=True)
     class Meta:
         verbose_name_plural = 'Static Values'
