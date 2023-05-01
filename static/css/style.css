@@ -76,7 +76,7 @@ p.sub_heading {
 }
 
 .progress-bar span {
-    color: #ffdde9 !important;
+    color: #ffdde9;
 }
 
 .progress-bar .current {
@@ -127,4 +127,9 @@ p.sub_heading {
     left: -2.1rem;
     top: 0.2rem;
     margin-right: 10px;
+}
+
+
+.progress-bar {
+    transition: height 0.5s ease;
 }

@@ -109,7 +109,7 @@ class Update(View):
         # # Преобразование QuerySet в список словарей
         employee_data = serializers.serialize('json', employee)
         static_v = {'global_goal': my_variable_value.global_goal, 'employee_goal': my_variable_value.employee_goal,
-                    'today_goal': my_variable_value.today_goal}
+                    'today_goal': my_variable_value.today_goal, 'success_color': my_variable_value.success_color}
 
         # Логика обработки AJAX-запроса и формирования данных для отправки клиенту
         data = {'users': employee_data,

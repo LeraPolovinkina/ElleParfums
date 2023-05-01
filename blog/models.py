@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from colorfield.fields import ColorField
 from django.db import models
 
 class User(models.Model):
@@ -17,5 +17,6 @@ class StaticValue(models.Model):
     token = models.CharField(max_length=200, default="")
     date = models.DateField(default=datetime.now())
     use_start_of_month = models.BooleanField(default=True)
+    success_color = ColorField(default="#529653")
     class Meta:
         verbose_name_plural = 'Static Values'

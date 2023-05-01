@@ -1,12 +1,34 @@
 const progressBars = document.querySelectorAll('.progress-bar');
-progressBars.forEach(progress => {
-    const currentElement = progress.querySelector('.current');
-    const curValue = progress.getAttribute('data-cur');
-    let maxValue = progress.parentElement.getAttribute('data-max');
-    const width = (curValue * 100) / maxValue;
-    progress.style.width = `${width + (30- (30*width/100))}%`;
-    currentElement.textContent = `${curValue}`;
-});
+let suc_color = ''
+
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'update/');
+xhr.onload = function () {
+    if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        suc_color = response['variable']["success_color"];
+        progressBars.forEach(progress => {
+            const texts = progress.querySelectorAll('span')
+            const currentElement = progress.querySelector('.current');
+            const curValue = progress.getAttribute('data-cur');
+            let maxValue = progress.parentElement.getAttribute('data-max');
+            const width = (curValue * 100) / maxValue;
+            if (width >= 100) {
+                progress.style.backgroundColor = suc_color
+                texts.forEach(text => {
+                    text.style.color = '#FFF'
+                })
+                progress.style.width = `${width}%`;
+            } else {
+                progress.style.width = `${width + (30 - (30 * width / 100))}%`;
+            }
+            currentElement.textContent = `${curValue}`;
+        });
+    } else {
+        console.log('Request failed.  Returned status of ' + xhr.status);
+    }
+};
+xhr.send();
 
 progressBars.forEach(progressBar => {
     const spans = progressBar.querySelectorAll('span');
@@ -44,6 +66,7 @@ function updateData() {
         type: 'GET', // Метод HTTP-запроса
         dataType: 'json', // Ожидаемый формат данных в ответе
         success: function (data) {
+
             console.log(data)
             var users_s = JSON.parse(data['users'])
             var variable = data['variable']
@@ -52,6 +75,7 @@ function updateData() {
             // Функция обработки успешного ответа от сервера
             // Очистка текущего списка пользователей на странице
             $('#user-list').empty();
+
             // Добавление каждого пользователя из полученных данных на страницу
             $.each(users_s, function (index, user) {
                 if (index === 0) {
@@ -73,7 +97,7 @@ function updateData() {
                         '</div>' +
                         '</div>';
                 }
-                
+
                 // Вставляем созданный HTML-код в нужное место на странице
                 $('#user-list').append(userHtml);
             });
@@ -113,7 +137,16 @@ function updateData() {
                 const curValue = progress.getAttribute('data-cur');
                 let maxValue = progress.parentElement.getAttribute('data-max');
                 const width = (curValue * 100) / maxValue;
-                progress.style.width = `${width + (30- (30*width/100))}%`;
+                const texts = progress.querySelectorAll('span');
+                if (width >= 100) {
+                    progress.style.backgroundColor = variable['success_color'];
+                    texts.forEach(text => {
+                        text.style.color = '#FFF'
+                    })
+                    progress.style.width = `${width}%`;
+                } else {
+                    progress.style.width = `${width + (30 - (30 * width / 100))}%`;
+                }
                 currentElement.textContent = `${curValue}`;
             });
 
