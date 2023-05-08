@@ -133,3 +133,31 @@ p.sub_heading {
 .progress-bar {
     transition: height 0.5s ease;
 }
+
+.premium-percent .text {
+    font-weight: 700;
+    line-height: 1.25rem;
+    font-size: 18.0602px;
+    font-family: 'IBM Plex Sans';
+    word-break: keep-all;
+}
+
+.premium-percent-block {
+    margin-bottom: 24px;
+    word-break: keep-all;
+
+}
+
+.main-container {
+    padding: 0 12em !important;
+    word-break: keep-all;
+
+}
+
+.emoji-circle {
+    height: 1px;
+    padding-top: -2rem;
+}
+.emoji-circle img {
+    margin-top: -2.5rem;
+}

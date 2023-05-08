@@ -1,3 +1,13 @@
+function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function randomOneZero() {
+    let items = [0, 0, 0, 0, 1]
+    return items[Math.floor(Math.random() * items.length)];
+}
+
+let pizza_was_or_not = false
 const progressBars = document.querySelectorAll('.progress-bar');
 let suc_color = ''
 
@@ -112,6 +122,12 @@ function updateData() {
                     <span class="d-flex flex-column justify-content-center">
                         <h1 class="circle-h1">${month['profit']}</h1>
                         <h5 class="circle-sub">GOAL ${variable['global_goal']}</h5>
+                        <div class="emoji-circle">
+                                <img style="height: 2.5rem" 
+                                                           src="static/img/tango.png" alt="">
+                                <img
+                                    style="height: 2.5rem" src="static/img/beer.png" alt="">
+                            </div>
                     </span>
                     <div class="left-half-clipper">
                         <div class="first50-bar"></div>
@@ -160,14 +176,60 @@ function updateData() {
 
                 progressBar.style.minWidth = totalWidth + 'px';
             });
+            if (today['profit'] >= variable['today_goal'] && !pizza_was_or_not) {
+                pizza_was_or_not = true
+                const end = Date.now() + 10 * 1000;
+
+                const audio = new Audio('static/sounds/pizza.mp3');
+                audio.play().then(r => {});
+                (function frame() {
+                    confetti({
+                        particleCount: randomOneZero(),
+                        angle: 60,
+                        spread: 55,
+                        origin: {x: 0},
+                        scalar: randomInRange(4, 7),
+                        shapes: ["image"],
+                        shapeOptions: {
+                            image: [
+                                {
+                                    src: "static/img/pizza.png",
+                                    width: 32,
+                                    height: 32,
+                                },
+                            ],
+                        },
+                    });
+
+                    confetti({
+                        particleCount: randomOneZero(),
+                        angle: 120,
+                        spread: -55,
+                        origin: {x: 1},
+                        scalar: randomInRange(4, 7),
+                        shapes: ["image"],
+                        shapeOptions: {
+                            image: [
+                                {
+                                    src: "static/img/pizza.png",
+                                    width: 32,
+                                    height: 32,
+                                },
+                            ],
+                        },
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                })();
+            }
             if (curValue_day < today['profit']) {
+                const audio = new Audio('static/sounds/sale.mp3');
+                audio.play().then(r => {});
                 const duration = 10 * 1000,
                     animationEnd = Date.now() + duration,
                     defaults = {startVelocity: 30, spread: 360, ticks: 60, zIndex: 0};
-
-                function randomInRange(min, max) {
-                    return Math.random() * (max - min) + min;
-                }
 
                 const interval = setInterval(function () {
                     const timeLeft = animationEnd - Date.now();
