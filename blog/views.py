@@ -7,6 +7,8 @@ from blog import req
 from blog.models import User, StaticValue
 
 
+
+
 def home(request):
     # Данные, которые вы хотите передать на страницу
     employee = User.objects.filter(is_active=True)
@@ -109,7 +111,9 @@ class Update(View):
         # # Преобразование QuerySet в список словарей
         employee_data = serializers.serialize('json', employee)
         static_v = {'global_goal': my_variable_value.global_goal, 'employee_goal': my_variable_value.employee_goal,
-                    'today_goal': my_variable_value.today_goal, 'success_color': my_variable_value.success_color}
+                    'today_goal': my_variable_value.today_goal, 'success_color': my_variable_value.success_color,
+                    'show_users_15_and_20_percent': my_variable_value.show_users_15_and_20_percent,
+                    'pizza_sound': my_variable_value.pizza_sound.name, 'sale_sound': my_variable_value.sale_sound.name}
 
         # Логика обработки AJAX-запроса и формирования данных для отправки клиенту
         data = {'users': employee_data,

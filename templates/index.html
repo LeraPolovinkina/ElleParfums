@@ -1,4 +1,6 @@
 {% load static %}
+{% load mathfilters %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +31,8 @@
             <p class="sub_heading">Чистая прибыль компании за текущий месяц. (При выполнении плана начисляется 20%
                 от всей суммы)</p>
             <div class="row">
-                <div id="user-list" class="col-9">
+                <div id="user-list"
+                     class="{% if variable.show_users_15_and_20_percent %}col-9 {% else %}col{% endif %}">
                     <div class="progress mb-4" data-max="{{ first.goal }}" style="height: 2.5rem;">
                         <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
                              data-cur="{{ first.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
@@ -48,32 +51,30 @@
                         </div>
                     {% endfor %}
                 </div>
-                <div class="col-3 premium-percent p-0">
-                    <div class="premium-percent-block">
-                        <div class="text text-success">
-                            10000000 <span>(15%)</span>
+                {% if variable.show_users_15_and_20_percent %}
+
+                    <div class="col premium-percent p-0">
+                        <div class="premium-percent-block">
+                            <div class="text text-success">
+                                {{ first.profit|div:100|mul:15|add:15000 }} <span>(15%)</span>
+                            </div>
+                            <div class="text text-danger">
+                                {{ first.profit|div:100|mul:20|add:15000 }} <span>(20%)</span>
+                            </div>
                         </div>
-                        <div class="text text-danger">
-                            10000000 <span>(20%)</span>
-                        </div>
+
+                        {% for user in users %}
+                            <div class="premium-percent-block">
+                                <div class="text text-success">
+                                    {{ user.profit|div:100|mul:15|add:15000 }} <span>(15%)</span>
+                                </div>
+                                <div class="text text-danger">
+                                    {{ user.profit|div:100|mul:20|add:15000 }} <span>(20%)</span>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="premium-percent-block">
-                        <div class="text text-success">
-                            10000000 <span>(15%)</span>
-                        </div>
-                        <div class="text text-danger">
-                            10000000 <span>(20%)</span>
-                        </div>
-                    </div>
-                    <div class="premium-percent-block">
-                        <div class="text text-success">
-                            10000000 <span>(15%)</span>
-                        </div>
-                        <div class="text text-danger">
-                            10000000 <span>(20%)</span>
-                        </div>
-                    </div>
-                </div>
+                {% endif %}
             </div>
             {#				<div class="progress" data-max="100000" style="height: 2rem;">#}
             {#					<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" data-cur="96000" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">#}

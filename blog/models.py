@@ -18,5 +18,8 @@ class StaticValue(models.Model):
     date = models.DateField(default=datetime.now())
     use_start_of_month = models.BooleanField(default=True)
     success_color = ColorField(default="#529653")
+    show_users_15_and_20_percent = models.BooleanField(default=True)
+    pizza_sound = models.FileField(upload_to='static/sounds/', default='static/sounds/pizza.mp3')
+    sale_sound = models.FileField(upload_to='static/sounds/', default='static/sounds/sale.mp3')
     class Meta:
         verbose_name_plural = 'Static Values'

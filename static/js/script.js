@@ -110,7 +110,24 @@ function updateData() {
 
                 // Вставляем созданный HTML-код в нужное место на странице
                 $('#user-list').append(userHtml);
+
+
             });
+            if (variable['show_users_15_and_20_percent']) {
+                $(".premium-percent").empty();
+                console.log("gg")
+                $.each(users_s, function (index, user) {
+                    var percentHtml = '<div class="premium-percent-block">' +
+                        '<div class="text text-success">' + parseInt(user['fields']['profit'] / 100 * 15 + 15000) +
+                        '<span>(15%)</span>' +
+                        '</div>' +
+                        '<div class="text text-danger">' + parseInt(user['fields']['profit'] / 100 * 20 + 15000) +
+                        '<span>(20%)</span>' +
+                        '</div>' +
+                        '</div>'
+                    $('.premium-percent').append(percentHtml);
+                });
+            }
 
 
             // Получаем элемент, который нужно изменить
@@ -118,35 +135,37 @@ function updateData() {
             progressBlock.empty()
             // Изменяем содержимое элемента
             progressBlock.append(`
-                <div class="progress-circle ${month['percent'] > 50 ? 'over50' : ''} p${month['percent']} m-0">
+                            <div
+                                class="progress-circle ${month['percent'] > 50 ? 'over50' : ''} p${month['percent']} m-0">
                     <span class="d-flex flex-column justify-content-center">
                         <h1 class="circle-h1">${month['profit']}</h1>
                         <h5 class="circle-sub">GOAL ${variable['global_goal']}</h5>
                         <div class="emoji-circle">
-                                <img style="height: 2.5rem" 
-                                                           src="static/img/tango.png" alt="">
+                                <img style="height: 2.5rem"
+                                     src="static/img/tango.png" alt="">
                                 <img
                                     style="height: 2.5rem" src="static/img/beer.png" alt="">
                             </div>
                     </span>
-                    <div class="left-half-clipper">
-                        <div class="first50-bar"></div>
-                        <div class="value-bar"></div>
-                    </div>
-                </div>
-            `);
+                                <div class="left-half-clipper">
+                                    <div class="first50-bar"></div>
+                                    <div class="value-bar"></div>
+                                </div>
+                            </div>
+                            `);
 
             let progress_day = $('#progress_day');
             let curValue_day = progress_day.find('.progress-bar').data('cur');
             progress_day.empty()
             progress_day.append(`
-                <div class="progress mb-4" data-max="${variable['today_goal']}" style="height: 2.5rem;">
-                    <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
-                            data-cur="${today['profit']}">
-                        <span class="current m-0">${today['profit']}</span>
-                    </div>
-                </div>
-            `);
+                            <div class="progress mb-4" data-max="${variable['today_goal']}" style="height: 2.5rem;">
+                                <div class="progress-bar d-flex flex-row justify-content-between px-3"
+                                     role="progressbar"
+                                     data-cur="${today['profit']}">
+                                    <span class="current m-0">${today['profit']}</span>
+                                </div>
+                            </div>
+                            `);
             const progressBars = document.querySelectorAll('.progress-bar');
             progressBars.forEach(progress => {
                 const currentElement = progress.querySelector('.current');
@@ -180,8 +199,9 @@ function updateData() {
                 pizza_was_or_not = true
                 const end = Date.now() + 10 * 1000;
 
-                const audio = new Audio('static/sounds/pizza.mp3');
-                audio.play().then(r => {});
+                const audio = new Audio(variable['pizza_sound']);
+                audio.play().then(r => {
+                });
                 (function frame() {
                     confetti({
                         particleCount: randomOneZero(),
@@ -225,8 +245,9 @@ function updateData() {
                 })();
             }
             if (curValue_day < today['profit']) {
-                const audio = new Audio('static/sounds/sale.mp3');
-                audio.play().then(r => {});
+                const audio = new Audio(variable['sale_sound']);
+                audio.play().then(r => {
+                });
                 const duration = 10 * 1000,
                     animationEnd = Date.now() + duration,
                     defaults = {startVelocity: 30, spread: 360, ticks: 60, zIndex: 0};

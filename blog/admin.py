@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import admin
 
 import blog
@@ -19,6 +21,23 @@ class StaticValueAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         # Запрет на удаление объектов
         return False
+
+    def save_model(self, request, obj, form, change):
+        # Получаем новый файл из формы
+        new_file = form.cleaned_data.get('pizza_sound')
+
+        # Получаем объект модели и путь к текущему файлу
+        obj = form.save(commit=False)
+        old_file_path = obj.pizza_sound.path
+
+        # Удаляем текущий файл перед сохранением нового
+        if os.path.exists(old_file_path):
+            os.remove(old_file_path)
+
+        # Сохраняем новый файл и модель
+        obj.pizza_sound = new_file
+        obj.save()
+        form.save_m2m()
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'profit', 'is_active', 'goal')  # Поля, отображаемые в списке пользователей
