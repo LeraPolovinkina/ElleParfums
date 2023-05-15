@@ -21,5 +21,6 @@ class StaticValue(models.Model):
     show_users_15_and_20_percent = models.BooleanField(default=True)
     pizza_sound = models.FileField(upload_to='static/sounds/', default='static/sounds/pizza.mp3')
     sale_sound = models.FileField(upload_to='static/sounds/', default='static/sounds/sale.mp3')
+    date_turn_on = models.BooleanField(default=True)
     class Meta:
         verbose_name_plural = 'Static Values'

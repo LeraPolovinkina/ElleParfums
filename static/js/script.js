@@ -17,6 +17,8 @@ xhr.onload = function () {
     if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         suc_color = response['variable']["success_color"];
+
+
         progressBars.forEach(progress => {
             const texts = progress.querySelectorAll('span')
             const currentElement = progress.querySelector('.current');
@@ -77,11 +79,16 @@ function updateData() {
         dataType: 'json', // Ожидаемый формат данных в ответе
         success: function (data) {
 
-            console.log(data)
             var users_s = JSON.parse(data['users'])
             var variable = data['variable']
             var today = data['today']
             var month = data['month']
+            if(variable['date_turn_on']){
+                $("#current_date").show()
+                $("#current_date").text(variable['current_date'])
+            } else {
+                $("#current_date").hide()
+            }
             // Функция обработки успешного ответа от сервера
             // Очистка текущего списка пользователей на странице
             $('#user-list').empty();
@@ -115,7 +122,6 @@ function updateData() {
             });
             if (variable['show_users_15_and_20_percent']) {
                 $(".premium-percent").empty();
-                console.log("gg")
                 $.each(users_s, function (index, user) {
                     var percentHtml = '<div class="premium-percent-block">' +
                         '<div class="text text-success">' + parseInt(user['fields']['profit'] / 100 * 15 + 15000) +

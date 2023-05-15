@@ -23,6 +23,7 @@
 <div id="parallax"></div>
 <div class="container d-flex justify-content-center">
     <img src="../static/img/Elle_logo_balck%201.svg" class="logo mt-3" alt="">
+    {% if variable.date_turn_on %}<h1 id="current_date">{{ current_date }}</h1>{% endif %}
 </div>
 <div class="container-fluid main-container px-5 ">
     <div class="row gx-5">
