@@ -21,13 +21,13 @@
 </head>
 <body>
 <div id="parallax"></div>
-<div class="container d-flex justify-content-center">
+<div class="container d-flex flex-column justify-content-center text-center">
     <img src="../static/img/Elle_logo_balck%201.svg" class="logo mt-3" alt="">
-    {% if variable.date_turn_on %}<h1 id="current_date">{{ current_date }}</h1>{% endif %}
+    {% if variable.date_turn_on %}<h2 id="current_date" class="h1_current_date text-center">{{ current_date }}</h2>{% endif %}
 </div>
-<div class="container-fluid main-container px-5 ">
+<div class="container-fluid container-sm px-5 ">
     <div class="row gx-5">
-        <div class="col-7 mt-5">
+        <div class="col-sm-12 col-md-7  mt-5">
             <h3>Лучшие парфюмерные стилисты</h3>
             <p class="sub_heading">Чистая прибыль компании за текущий месяц. (При выполнении плана начисляется 20%
                 от всей суммы)</p>
@@ -91,7 +91,7 @@
             {#				</div>#}
 
         </div>
-        <div class="col mt-5">
+        <div class="col mt-5 mb-5">
             <div>
                 <h3>Цель команды Elle Parfums</h3>
                 <p class="sub_heading">Прибыль компании за текущий месяц</p>
