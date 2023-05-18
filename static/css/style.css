@@ -12,7 +12,7 @@ body {
 }
 
 .logo {
-    height: 6rem;
+    height: 4rem;
 }
 
 h3 {
@@ -163,5 +163,5 @@ p.sub_heading {
 }
 
 .h1_current_date {
-
+    font-size: 20px ;
 }

@@ -20,10 +20,28 @@
 
 </head>
 <body>
+<div class="modal fade show" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+     style="display: block;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Внимание!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Данное окно предупреждает вас о том что нужно нажать на кнопку, чтобы музыка работала. Просто закройте окно и все будет хорошо, это нужно чтобы JavaScript понял что музыка это не спам.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="parallax"></div>
 <div class="container d-flex flex-column justify-content-center text-center">
     <img src="../static/img/Elle_logo_balck%201.svg" class="logo mt-3" alt="">
-    {% if variable.date_turn_on %}<h2 id="current_date" class="h1_current_date text-center">{{ current_date }}</h2>{% endif %}
+    {% if variable.date_turn_on %}
+        <h2 id="current_date" class="h1_current_date text-center">{{ current_date }}</h2>{% endif %}
 </div>
 <div class="container-fluid container-sm px-5 ">
     <div class="row gx-5">
@@ -135,12 +153,17 @@
         </div>
     </div>
 </div>
-<script src="{% static 'vendor/bootstrap5/js/bootstrap.min.js' %}"></script>
+
 <script src="{% static '/js/jquery-3.6.4.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap5/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/tsparticlesconfettibundle.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
-
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#exampleModalCenter').modal('show');
+    });
+</script>
 <script>
     setInterval(updateData, 5000);
 </script>
