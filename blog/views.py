@@ -12,8 +12,9 @@ from blog.models import User, StaticValue
 
 def home(request):
     # Данные, которые вы хотите передать на страницу
-    employee = User.objects.filter(is_active=True)
-    employee = employee.order_by('-profit')
+    my_variable_value = StaticValue.objects.first()
+    show_employees = my_variable_value.show_employees
+    employee = User.objects.filter(is_active=True).order_by('-profit')
 
     new_api_users = req.get_all_employees()
     today = req.get_today_statistic()
@@ -53,7 +54,6 @@ def home(request):
         user.save()
     # Сохранение нового пользователя
 
-    my_variable_value = StaticValue.objects.first()
 
     current_date = datetime.date.today()
 
@@ -61,11 +61,11 @@ def home(request):
     formatted_date = current_date.strftime("%d.%m.%Y")
     # Передача данных в шаблон
     context = {'first': employee[0],
-               'users': employee[1:],
-               'variable': my_variable_value,
-               'current_date': formatted_date,
-               'today': today,
-               'month': month}
+                'users': employee[1:],
+                'variable': my_variable_value,
+                'current_date': formatted_date,
+                'today': today,
+                'month': month}
 
     # Возврат отрендеренного представления с передачей контекста
     return render(request, 'index.html', context)
@@ -134,3 +134,4 @@ class Update(View):
                 'today': today,
                 'month': month}
         return JsonResponse(data)
+

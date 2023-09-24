@@ -12,6 +12,7 @@ admin.site.unregister(Group)
 
 # Register your models here.
 class StaticValueAdmin(admin.ModelAdmin):
+
     # Определение отображаемых полей и других настроек
 
     def has_add_permission(self, request):
@@ -29,7 +30,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'profit', 'is_active', 'goal')  # Поля, отображаемые в списке пользователей
     list_filter = ('is_active',)  # Фильтр по активному/неактивному статусу
     search_fields = ('name', 'profit')  # Поля, по которым можно искать пользователей
-    list_editable = ('is_active', 'goal',)  # Добавляем атрибут list_editable для редактирования is_active
+    list_editable = ('is_active', 'goal')  # Добавляем атрибут list_editable для редактирования is_active
 
 
 admin.site.register(blog.models.User, UserAdmin)

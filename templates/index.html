@@ -46,30 +46,33 @@
 <div class="container-fluid container-sm px-5 ">
     <div class="row gx-5">
         <div class="col mt-5">
-            <h3>Лучшие парфюмерные стилисты</h3>
-            <p class="sub_heading">Чистая прибыль компании за текущий месяц. (При выполнении плана начисляется 20%
-                от всей суммы)</p>
+            {% if variable.show_employees %}
+                <h3>Лучшие парфюмерные стилисты</h3>
+                <p class="sub_heading">Чистая прибыль компании за текущий месяц. (При выполнении плана начисляется 20%
+                    от всей суммы)</p>{% endif %}
             <div class="row">
-                <div id="user-list"
-                     class="{% if variable.show_users_15_and_20_percent %}col-9 {% else %}col{% endif %}">
-                    <div class="progress mb-4" data-max="{{ first.goal }}" style="height: 2.5rem;">
-                        <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
-                             data-cur="{{ first.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                        <span class="float-end"><img src="/static/img/1f947.png" class="empl-medal"
-                                                     alt="">{{ first.name }}</span>
-                            <span class="current float-end">{{ first.profit }}</span>
-                        </div>
-                    </div>
-                    {% for user in users %}
-                        <div class="progress mb-4" data-max="{{ user.goal }}" style="height: 2.5rem;">
+                {% if variable.show_employees %}
+                    <div id="user-list"
+                         class="{% if variable.show_users_15_and_20_percent %}col-9 {% else %}col{% endif %}">
+                        <div class="progress mb-4" data-max="{{ first.goal }}" style="height: 2.5rem;">
                             <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
-                                 data-cur="{{ user.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                <span class="float-end">{{ user.name }}</span>
-                                <span class="current float-end">{{ user.profit }}</span>
+                                 data-cur="{{ first.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <span class="float-end"><img src="/static/img/1f947.png" class="empl-medal"
+                                                         alt="">{{ first.name }}</span>
+                                <span class="current float-end">{{ first.profit }}</span>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+                            {% for user in users %}
+                                <div class="progress mb-4" data-max="{{ user.goal }}" style="height: 2.5rem;">
+                                    <div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar"
+                                         data-cur="{{ user.profit }}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="float-end">{{ user.name }}</span>
+                                        <span class="current float-end">{{ user.profit }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                    </div>
+
                 {% if variable.show_users_15_and_20_percent %}
 
                     <div class="col-3 premium-percent p-0">
@@ -93,7 +96,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                {% endif %}
+                {% endif %} {% endif %}
             </div>
             {#				<div class="progress" data-max="100000" style="height: 2rem;">#}
             {#					<div class="progress-bar d-flex flex-row justify-content-between px-3" role="progressbar" data-cur="96000" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">#}
@@ -109,48 +112,93 @@
             {#				</div>#}
 
         </div>
-        <div class="col mt-5 mb-5">
-            <div>
-                <h3>Цель команды Elle Parfums</h3>
-                <p class="sub_heading">Прибыль компании за текущий месяц</p>
-                <div class="progress-block d-flex justify-content-center">
-                    <div class="progress-circle {% if month.percent > 50 %}over50{% endif %} p{{ month.percent }} m-0">
-						<span class="d-flex flex-column justify-content-center">
-							<h1 class="circle-h1">{{ month.profit }}</h1>
-							<h5 class="circle-sub">GOAL {{ variable.global_goal }}</h5>
-                            <div class="emoji-circle">
-                                <img style="height: 2.5rem"
-                                     src="{% static 'img/tango.png' %}" alt="">
-                                <img
-                                        style="height: 2.5rem" src="{% static 'img/beer.png' %}" alt="">
+        {% if variable.show_employees %}
+            <div class="col mt-5 mb-5">
+                <div>
+                    <h3>Цель команды Elle Parfums</h3>
+                    <p class="sub_heading">Прибыль компании за текущий месяц</p>
+                    <div class="progress-block d-flex justify-content-center">
+                        <div class="progress-circle {% if month.percent > 50 %}over50{% endif %} p{{ month.percent }} m-0">
+                            <span class="d-flex flex-column justify-content-center">
+                                <h1 class="circle-h1">{{ month.profit }}</h1>
+                                <h5 class="circle-sub">GOAL {{ variable.global_goal }}</h5>
+                                <div class="emoji-circle">
+                                    <img style="height: 2.5rem"
+                                         src="{% static 'img/tango.png' %}" alt="">
+                                    <img
+                                            style="height: 2.5rem" src="{% static 'img/beer.png' %}" alt="">
+                                </div>
+                            </span>
+                            <div class="left-half-clipper">
+                                <div class="first50-bar"></div>
+                                <div class="value-bar"></div>
                             </div>
-						</span>
-                        <div class="left-half-clipper">
-                            <div class="first50-bar"></div>
-                            <div class="value-bar"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <h3>Цель команды на сегодня</h3>
-                <p class="sub_heading">Прибыль компании за текущий день</p>
-                <div class="d-flex">
-                    <div class="flex-fill">
-                        <div id="progress_day">
-                            <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
-                                <div class="progress-bar d-flex flex-row justify-content-between px-3"
-                                     role="progressbar"
-                                     data-cur="{{ today.profit }}">
-                                    <span class="current m-0">Employee 1</span>
+                <div>
+                    <h3>Цель команды на сегодня</h3>
+                    <p class="sub_heading">Прибыль компании за текущий день</p>
+                    <div class="d-flex">
+                        <div class="flex-fill">
+                            <div id="progress_day">
+                                <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
+                                    <div class="progress-bar d-flex flex-row justify-content-between px-3"
+                                         role="progressbar"
+                                         data-cur="{{ today.profit }}">
+                                        <span class="current m-0">Employee 1</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <img style="height: 2.5rem" class="ps-2" src="{% static 'img/pizza.png' %}" alt="">
                     </div>
-                    <img style="height: 2.5rem" class="ps-2" src="{% static 'img/pizza.png' %}" alt="">
                 </div>
             </div>
-        </div>
+        {% else %}
+            <div class="shifted">
+                <div>
+                    <h3>Цель команды Elle Parfums</h3>
+                    <p class="sub_heading">Прибыль компании за текущий месяц</p>
+                    <div class="progress-block d-flex justify-content-center">
+                        <div class="progress-circle {% if month.percent > 50 %}over50{% endif %} p{{ month.percent }} m-0">
+                            <span class="d-flex flex-column justify-content-center">
+                                <h1 class="circle-h1">{{ month.profit }}</h1>
+                                <h5 class="circle-sub">GOAL {{ variable.global_goal }}</h5>
+                                <div class="emoji-circle">
+                                    <img style="height: 2.5rem"
+                                         src="{% static 'img/tango.png' %}" alt="">
+                                    <img
+                                            style="height: 2.5rem" src="{% static 'img/beer.png' %}" alt="">
+                                </div>
+                            </span>
+                            <div class="left-half-clipper">
+                                <div class="first50-bar"></div>
+                                <div class="value-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Цель команды на сегодня</h3>
+                    <p class="sub_heading">Прибыль компании за текущий день</p>
+                    <div class="d-flex">
+                        <div class="flex-fill">
+                            <div id="progress_day">
+                                <div class="progress mb-4" data-max="{{ variable.today_goal }}" style="height: 2.5rem;">
+                                    <div class="progress-bar d-flex flex-row justify-content-between px-3"
+                                         role="progressbar"
+                                         data-cur="{{ today.profit }}">
+                                        <span class="current m-0">Employee 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img style="height: 2.5rem" class="ps-2" src="{% static 'img/pizza.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 
