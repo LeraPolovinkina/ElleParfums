@@ -13,7 +13,6 @@ from blog.models import User, StaticValue
 def home(request):
     # Данные, которые вы хотите передать на страницу
     my_variable_value = StaticValue.objects.first()
-    show_employees = my_variable_value.show_employees
     employee = User.objects.filter(is_active=True).order_by('-profit')
 
     new_api_users = req.get_all_employees()

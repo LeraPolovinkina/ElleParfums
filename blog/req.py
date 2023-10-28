@@ -50,7 +50,8 @@ def get_global_statistic():
     response = requests.get(
         'https://joinposter.com/api/dash.getSpotsSales', params=data)
 
-    result = {'profit': int(float(response.json()['response']['revenue']))}
+    # result = {'profit': int(float(response.json()['response']['revenue']))}
+    result = {'profit': int(float(response.json()['response']['profit']))}
     max_value = int(StaticValue.objects.first().global_goal)
     result['percent'] = int(result['profit'] * 100 / max_value)
     return result
