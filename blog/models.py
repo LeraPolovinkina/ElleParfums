@@ -4,6 +4,8 @@ from django.db import models
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import shutil
+from django.utils.text import slugify
+from transliterate import translit
 
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
@@ -15,6 +17,7 @@ class User(models.Model):
     user_id = models.IntegerField()
     is_active = models.BooleanField(default=True)
     goal = models.IntegerField(default=500000)
+
 
 
 
@@ -32,6 +35,7 @@ class StaticValue(models.Model):
     sale_sound = models.FileField(upload_to='static/sounds/', default='static/sounds/sale.mp3')
     date_turn_on = models.BooleanField(default=True)
     show_employees = models.BooleanField(default=True)
+    message = models.TextField(max_length=300, default="",blank=True, null=True)
 
 
 
