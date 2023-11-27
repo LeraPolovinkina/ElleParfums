@@ -148,9 +148,9 @@ function updateData() {
                         <h5 class="circle-sub">GOAL ${variable['global_goal']}</h5>
                         <div class="emoji-circle">
                                 <img style="height: 2.5rem"
-                                     src="static/img/tango.png" alt="">
+                                     src="/static/img/tango.png" alt="">
                                 <img
-                                    style="height: 2.5rem" src="static/img/beer.png" alt="">
+                                    style="height: 2.5rem" src="/static/img/beer.png" alt="">
                             </div>
                     </span>
                                 <div class="left-half-clipper">
@@ -219,7 +219,7 @@ function updateData() {
                         shapeOptions: {
                             image: [
                                 {
-                                    src: "static/img/pizza.png",
+                                    src: "/static/img/pizza.png",
                                     width: 32,
                                     height: 32,
                                 },
@@ -237,7 +237,7 @@ function updateData() {
                         shapeOptions: {
                             image: [
                                 {
-                                    src: "static/img/pizza.png",
+                                    src: "/static/img/pizza.png",
                                     width: 32,
                                     height: 32,
                                 },
