@@ -15,5 +15,5 @@ urlpatterns = [
     path('user/<str:name>/', UserPersonalView.as_view(), name='user'),
     path('user/<str:name>/update/', UpdatePersonalView.as_view(), name='update'),
     path('elle2/', elle2, name='elle2'),
-    path('elle2/update2/', UpdateSecondPage.as_view(), name='update2'),
+    path('elle2/update/', UpdateSecondPage.as_view(), name='update'),
 ]
