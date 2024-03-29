@@ -1,20 +1,3 @@
-"""
-URL configuration for lera_2 project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
 from django.template.context_processors import static
 from django.urls import path
@@ -22,7 +5,8 @@ from django.urls import path
 from blog.views import home, Update
 from blog.views import UserPersonalView
 from blog.views import UpdatePersonalView
-
+from blog.views import elle2
+from blog.views import UpdateSecondPage
 
 urlpatterns = [
     path('', home, name='home'),
@@ -30,4 +14,6 @@ urlpatterns = [
     path('update/', Update.as_view(), name='update'),
     path('user/<str:name>/', UserPersonalView.as_view(), name='user'),
     path('user/<str:name>/update/', UpdatePersonalView.as_view(), name='update'),
+    path('elle2/', elle2, name='elle2'),
+    path('elle2/update2/', UpdateSecondPage.as_view(), name='update2'),
 ]

@@ -6,22 +6,21 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 from blog import req
-from blog.models import User, StaticValue
-
-from lera_2 import settings
+from blog.models import UserVictory, StaticValueVictory
+from blog.models import UserEnglishDistrict, StaticValueEnglishDistrict
 
 
 def home(request):
     # Данные, которые вы хотите передать на страницу
-    my_variable_value = StaticValue.objects.first()
-    employee = User.objects.filter(is_active=True).order_by('-profit')
+    my_variable_value = StaticValueVictory.objects.first()
+    employee = UserVictory.objects.filter(is_active=True).order_by('-profit')
 
     new_api_users = req.get_all_employees()
     today = req.get_today_statistic()
     month = req.get_global_statistic()
 
     # Обновление или создание пользователей в базе данных Django
-    users = User.objects.all()
+    users = UserVictory.objects.all()
     for user in users:
         flag = False
         api_user = None
@@ -39,13 +38,7 @@ def home(request):
             user.save()
     print(new_api_users)
     for api_user in new_api_users:
-        # # Попытка найти пользователя по email в базе данных
-        # try:
-        #     user = User.objects.get(user_id=int(api_user['user_id']))
-        #     user.profit = int(api_user['profit'])
-        #     user.save()
-        # except User.DoesNotExist:
-        user = User(
+        user = UserVictory(
             name=api_user['name'],
             profit=int(api_user['profit']),
             user_id=int(api_user['user_id'])
@@ -72,14 +65,14 @@ def home(request):
 
 class Update(View):
     def get(self, request, *args, **kwargs):
-        employee = User.objects.filter(is_active=True).order_by('-profit')
+        employee = UserVictory.objects.filter(is_active=True).order_by('-profit')
 
         new_api_users = req.get_all_employees()
         today = req.get_today_statistic()
         month = req.get_global_statistic()
 
         # Обновление или создание пользователей в базе данных Django
-        users = User.objects.all()
+        users = UserVictory.objects.all()
         for user in users:
             flag = False
             api_user = None
@@ -97,13 +90,7 @@ class Update(View):
                 user.save()
         print(new_api_users)
         for api_user in new_api_users:
-            # # Попытка найти пользователя по email в базе данных
-            # try:
-            #     user = User.objects.get(user_id=int(api_user['user_id']))
-            #     user.profit = int(api_user['profit'])
-            #     user.save()
-            # except User.DoesNotExist:
-            user = User(
+            user = UserVictory(
                 name=api_user['name'],
                 profit=int(api_user['profit']),
                 user_id=int(api_user['user_id'])
@@ -112,7 +99,7 @@ class Update(View):
             user.save()
         # Сохранение нового пользователя
 
-        my_variable_value = StaticValue.objects.first()
+        my_variable_value = StaticValueVictory.objects.first()
 
         current_date = datetime.date.today()
 
@@ -143,11 +130,11 @@ class UserPersonalView(View):
 
     def get(self, request, name):
         try:
-            user = User.objects.get(name=name)
-        except User.DoesNotExist:
+            user = UserVictory.objects.get(name=name)
+        except UserVictory.DoesNotExist:
             return render(request, 'user_not_found.html', {'name': name})
 
-        my_variable_value = StaticValue.objects.first()
+        my_variable_value = StaticValueVictory.objects.first()
         today = req.get_today_statistic()
         month = req.get_global_statistic()
 
@@ -163,13 +150,13 @@ class UserPersonalView(View):
 class UpdatePersonalView(View):
     def get(self, request, name):
         try:
-            user = User.objects.get(name=name)
-        except User.DoesNotExist:
+            user = UserVictory.objects.get(name=name)
+        except UserVictory.DoesNotExist:
             return JsonResponse({'error': f'Сортудник {name} не найден'})
 
         # Ваша логика обновления данных для конкретного пользователя
 
-        my_variable_value = StaticValue.objects.first()
+        my_variable_value = StaticValueVictory.objects.first()
         current_date = datetime.date.today()
         formatted_date = current_date.strftime("%d.%m.%Y")
 
@@ -197,4 +184,118 @@ class UpdatePersonalView(View):
             'month': month
         }
 
+        return JsonResponse(data)
+
+def elle2(request):
+    # Данные, которые вы хотите передать на страницу
+    my_variable_value = StaticValueEnglishDistrict.objects.first()
+    employee = UserEnglishDistrict.objects.filter(is_active=True).order_by('-profit')
+
+    new_api_users = req.get_all_employees()
+    today = req.get_today_statistic()
+    month = req.get_global_statistic()
+
+    # Обновление или создание пользователей в базе данных Django
+    users = UserEnglishDistrict.objects.all()
+    for user in users:
+        flag = False
+        api_user = None
+        for api_user in new_api_users:
+            if user.user_id == (api_user['user_id']):
+                flag = True
+                api_user = api_user
+                break
+        if flag:
+            user.profit = int(api_user['profit'])
+            user.save()
+            new_api_users.remove(api_user)
+        else:
+            user.profit = 0
+            user.save()
+    print(new_api_users)
+    for api_user in new_api_users:
+        user = UserEnglishDistrict(
+            name=api_user['name'],
+            profit=int(api_user['profit']),
+            user_id=int(api_user['user_id'])
+            # ... и так далее
+        )
+        user.save()
+    # Сохранение нового пользователя
+
+
+    current_date = datetime.date.today()
+
+    # Преобразовать текущую дату в формат "дд.мм.гггг"
+    formatted_date = current_date.strftime("%d.%m.%Y")
+    # Передача данных в шаблон
+    context = {'first': employee[0],
+                'users': employee[1:],
+                'variable': my_variable_value,
+                'current_date': formatted_date,
+                'today': today,
+                'month': month}
+
+    # Возврат отрендеренного представления с передачей контекста
+    return render(request, 'english_district.html', context)
+
+class UpdateSecondPage(View):
+    def get(self, request, *args, **kwargs):
+        employee = UserEnglishDistrict.objects.filter(is_active=True).order_by('-profit')
+
+        new_api_users = req.get_all_employees_elle2()
+        today = req.get_today_statistic_elle2()
+        month = req.get_global_statistic_elle2()
+
+        # Обновление или создание пользователей в базе данных Django
+        users = UserEnglishDistrict.objects.all()
+        for user in users:
+            flag = False
+            api_user = None
+            for api_user in new_api_users:
+                if user.user_id == (api_user['user_id']):
+                    flag = True
+                    api_user = api_user
+                    break
+            if flag:
+                user.profit = int(api_user['profit'])
+                user.save()
+                new_api_users.remove(api_user)
+            else:
+                user.profit = 0
+                user.save()
+        print(new_api_users)
+        for api_user in new_api_users:
+            user = UserEnglishDistrict(
+                name=api_user['name'],
+                profit=int(api_user['profit']),
+                user_id=int(api_user['user_id'])
+                # ... и так далее
+            )
+            user.save()
+        # Сохранение нового пользователя
+
+        my_variable_value = StaticValueEnglishDistrict.objects.first()
+
+        current_date = datetime.date.today()
+
+        # Преобразовать текущую дату в формат "дд.мм.гггг"
+        formatted_date = current_date.strftime("%d.%m.%Y")
+        # # Преобразование QuerySet в список словарей
+        employee_data = serializers.serialize('json', employee)
+        static_v = {'global_goal': my_variable_value.global_goal,
+                    'employee_goal': my_variable_value.employee_goal,
+                    'today_goal': my_variable_value.today_goal,
+                    'success_color': my_variable_value.success_color,
+                    'show_users_15_and_20_percent': my_variable_value.show_users_15_and_20_percent,
+                    'pizza_sound': my_variable_value.pizza_sound.name,
+                    'sale_sound': my_variable_value.sale_sound.name,
+                    'current_date': formatted_date,
+                    'date_turn_on': my_variable_value.date_turn_on}
+        print(static_v)
+        # Логика обработки AJAX-запроса и формирования данных для отправки клиенту
+        data = {'users': employee_data,
+                'variable': static_v,
+                'today': today,
+                'month': month}
         return JsonResponse(data)
