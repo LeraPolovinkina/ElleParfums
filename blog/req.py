@@ -53,6 +53,7 @@ def get_global_statistic():
     max_value = int(StaticValueVictory.objects.first().global_goal)
     result['percent'] = int(result['profit'] * 100 / max_value)
     print(result)
+    print(response)
     return result
 
 
@@ -69,8 +70,8 @@ def get_today_statistic():
     response = requests.get(
         'https://joinposter.com/api/dash.getSpotsSales', params=data)
     result = response.json()['response']
-    # result['profit'] = int(result['revenue'])
-    result['profit'] = int(result['profit'])
+    result['profit'] = int(result['revenue'])
+    # result['profit'] = int(result['profit'])
     print(result)
     return result
 
@@ -137,7 +138,7 @@ def get_today_statistic_elle2():
     response = requests.get(
         'https://joinposter.com/api/dash.getSpotsSales', params=data)
     result = response.json()['response']
-    # result['profit'] = int(result['revenue'])
-    result['profit'] = int(result['profit'])
+    result['profit'] = int(result['revenue'])
+    # result['profit'] = int(result['profit'])
     print(result)
     return result
